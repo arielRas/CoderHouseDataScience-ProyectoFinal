@@ -85,3 +85,32 @@ class Correlations():
         plt.tight_layout()
         plt.show()
         plt.style.use("default")
+
+
+class DescrStat:
+    def __init__(self) -> None:
+        pass
+
+    def get_var_data(data:pd.Series):
+        data_stats = {
+            'median' : data.median(),
+            'mean' : data.mean().round(4),
+            'mode' : stats.mode(data, keepdims=False)[0],
+            'std' : data.std().round(4),
+            'variance' : data.var().round(4),
+            'skew' : data.skew().round(4),
+            'kurtosys' : data.kurtosis().round(4)
+        }
+        return pd.Series(data_stats)
+    
+
+    def get_outliers_info(data:pd.Series):
+        q1 = data.quantile(0.25)
+        q3 = data.quantile(0.75)
+        irq = q3-q1
+        data_stats = {
+            'irq' : q3-q1,
+            'max_non_outlier' : q3+(irq*1.5),
+            'min_non_outlier' : q1-(irq*1.5)
+        }
+        return pd.Series(data_stats)
