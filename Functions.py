@@ -33,7 +33,7 @@ class Metrics():
         plt.show()
         mpl.style.use('default')
 
-    def get_metrics(self, model:str, sample:str, y_true, y_pred, y_prob)->dict:
+    def get_metrics(self, model:str, y_true, y_pred, y_prob)->dict:
         report = classification_report(y_true, y_pred, output_dict=True)
         precision_0 = report.get('0', {}).get('precision', None)
         precision_1 = report.get('1', {}).get('precision', None)
@@ -42,12 +42,15 @@ class Metrics():
         f1_0 = report.get('0', {}).get('f1-score', None)
         f1_1 = report.get('1', {}).get('f1-score', None)
         accuracy = report.get('accuracy', None)
-        rog_score = roc_auc_score(y_true, y_prob)
-        keys = ['model','sample','accuracy','rog_score','precision_0','precision_1','recall_0','recall_1','f1_score_0','f1_score_1']
-        values =  [model, sample, accuracy, rog_score, precision_0, precision_1, recall_0, recall_1, f1_0, f1_1]
+        roc_score = roc_auc_score(y_true, y_prob)
+        keys = ['model','accuracy','roc_score','precision_0','precision_1','recall_0','recall_1','f1_score_0','f1_score_1']
+        values =  [model, accuracy, roc_score, precision_0, precision_1, recall_0, recall_1, f1_0, f1_1]
         metrics = {}
         for key, value in zip(keys, values):
-            metrics[key] = value
+            if key == 'model':
+                metrics[key] = value
+            else:
+                metrics[key] = round(float(value),4)
         return metrics
 
 
