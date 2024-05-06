@@ -1,4 +1,4 @@
-Proyecto Final CoderHuse: Data Science<br>
+Proyecto Final CoderHouse: Data Science<br>
 Este repositorio contiene el proyecto final para la certificación del curso de Data Science. El proyecto se centra en un análisis de datos utilizando Python y se presenta en formato de Jupyter Notebook (archivo .ipynb).<br><br>
 
 Descripción del Proyecto<br>
